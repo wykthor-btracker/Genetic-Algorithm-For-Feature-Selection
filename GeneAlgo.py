@@ -15,9 +15,15 @@ class Error(Exception):
 
 class GeneTypeError(TypeError):
     def __init__(self,object):
-        self.object
+        self.object = object
     def __str__(self):
-        return repr("{} is of type {}, {} required.".format(self.object,type(self.object),list))
+        return repr("'{}' is of type {}, {} required.".format(self.object,type(self.object),list))
+
+class GeneFormatError(Error):
+    def __init__(self,gene):
+        self.gene = gene
+    def __str__(self):
+        return repr("'{}' contains invalid elements, supported elements are (0,1)".format(self.gene))
 #Error handling#
 class geneAlgo:
     """
@@ -38,6 +44,10 @@ class Individual:
     def __init__(self,gene):
         if type(gene)!=list:
             raise GeneTypeError(gene)
+        for gen in gene:
+            if (gen!=0 and gen!=1):
+                raise GeneFormatError(gene)
+        self.gene = gene
         return None
 #classes#
 
