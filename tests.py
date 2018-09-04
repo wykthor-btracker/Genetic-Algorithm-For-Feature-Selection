@@ -12,7 +12,8 @@
 #classes#
 
 #functions
-
+def test_nothing():
+    assert True==True
 #functions#
 
 #main
