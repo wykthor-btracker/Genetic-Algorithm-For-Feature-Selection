@@ -13,6 +13,12 @@ class Error(Exception):
     """Base Error Class"""
     pass
 
+class FitnessFunctionError(Error):
+    def __init__(self,object):
+        self.object = object
+    def __str__(self):
+        return repr("'{}' does not return a supported value, intenger or float.".format(self.object))
+
 class GeneTypeError(TypeError):
     def __init__(self,object):
         self.object = object
@@ -35,6 +41,8 @@ class geneAlgo:
     """
     def __init__(self,fitnessFunction):
         self.fitnessFunction = fitnessFunction
+        if not (type(fitnessFunction(3)) == float or type(fitnessFunction(3)) == int):
+            raise FitnessFunctionError(fitnessFunction)
         return None
 
 class Individual:
