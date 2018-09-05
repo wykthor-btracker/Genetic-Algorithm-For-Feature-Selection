@@ -50,15 +50,16 @@ class generation:
     def __init__(self,fitnessFunction,population):
         try:
             assert (type(fitnessFunction(3)) == float or type(fitnessFunction(3)) == int)
+            self.fitnessFunction = fitnessFunction
         except:
             raise FitnessFunctionError(fitnessFunction)
-        self.fitnessFunction = fitnessFunction
 
         for individual in population:
             try:
                 assert isinstance(individual,Individual)
             except:
                 raise PopulationContainsInvalidElement(individual)
+        self.population = population
         return None
 
 class Individual:
