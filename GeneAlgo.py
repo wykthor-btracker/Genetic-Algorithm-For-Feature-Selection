@@ -30,20 +30,35 @@ class GeneFormatError(Error):
         self.gene = gene
     def __str__(self):
         return repr("'{}' contains invalid elements, supported elements are (0,1)".format(self.gene))
-        
+
+class PopulationContainsInvalidElement(Error):
+    def __init__(self,object):
+        self.object = object
+    def __str__(self):
+        return repr("'{}' is {}, expected instance of GeneAlgo.Individual.".format(self.object,type(self.object)))
 #Error handling#
-class geneAlgo:
+class generation:
     """
     This class will be used with a high-order function as the fitness measurement method,
     working as the generation manipulation procedure, using various genetic algorithm methods
     taken letter-by-letter from the literature(For Genetic Algorithms).
 
     The function passed for fitness measurement should return a float or intenger.
+
+    population is a list comprised solely of instances of the GeneAlgo.Individual class.
     """
-    def __init__(self,fitnessFunction):
-        self.fitnessFunction = fitnessFunction
-        if not (type(fitnessFunction(3)) == float or type(fitnessFunction(3)) == int):
+    def __init__(self,fitnessFunction,population):
+        try:
+            assert (type(fitnessFunction(3)) == float or type(fitnessFunction(3)) == int)
+        except:
             raise FitnessFunctionError(fitnessFunction)
+        self.fitnessFunction = fitnessFunction
+
+        for individual in population:
+            try:
+                assert isinstance(individual,Individual)
+            except:
+                raise PopulationContainsInvalidElement(individual)
         return None
 
 class Individual:
