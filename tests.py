@@ -23,7 +23,7 @@ def test_Class_Fitness_Method():
     assert (type(newinstance.fitnessFunction(3)) == float or type(newinstance.fitnessFunction(3)) == int)
 
 def test_individual_Instance():
-    newinstance = GeneAlgo.Individual()
+    newinstance = GeneAlgo.Individual([1])
     assert isinstance(newinstance,GeneAlgo.Individual)
 
 def test_Individual_Gene_Format():
