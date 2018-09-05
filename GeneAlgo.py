@@ -30,6 +30,7 @@ class GeneFormatError(Error):
         self.gene = gene
     def __str__(self):
         return repr("'{}' contains invalid elements, supported elements are (0,1)".format(self.gene))
+        
 #Error handling#
 class geneAlgo:
     """
@@ -52,6 +53,7 @@ class Individual:
     def __init__(self,gene):
         if type(gene)!=list:
             raise GeneTypeError(gene)
+
         for gen in gene:
             if (gen!=0 and gen!=1):
                 raise GeneFormatError(gene)
